@@ -1,0 +1,28 @@
+@import 'https://fonts.googleapis.com/css?family=Quicksand';
+@import 'https://fonts.googleapis.com/css?family=Quattrocento';
+@import 'https://fonts.googleapis.com/css?family=Quattrocento+Sans';
+@import 'https://fonts.googleapis.com/css?family=EB+Garamond';
+@import 'https://fonts.googleapis.com/css?family=Open+Sans';
+@import 'https://fonts.googleapis.com/css?family=Nixie+One';
+@import 'https://fonts.googleapis.com/css?family=Quando';
+
+//Fonts
+$font-family-sans-serif:  'Quattrocento Sans';
+$font-family-serif:       'Quando';
+
+$headings-font-family: $font-family-serif;
+$font-family-base: $font-family-sans-serif;
+
+// Glyphicons font path
+// $icon-font-path:        "../fonts/";
+
+// Grid settings
+$main-sm-columns:       12;
+$sidebar-sm-columns:    3;
+
+// Colors
+$brand-primary:         #2d8054;
+$light-grey:            #ceD4d2;
+$light-colour:          #84d9d0;
+$dark-color:            #50ada4;
+$body-bg:               #ffffff;

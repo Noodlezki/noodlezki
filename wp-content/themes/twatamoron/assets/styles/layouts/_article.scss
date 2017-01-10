@@ -1,0 +1,47 @@
+.breadcrumb {
+  color: white;
+  a {
+    color: white;
+  }
+  background-color: $brand-primary;
+  margin-top: -$gap;
+  margin-bottom: $gap;
+  border-bottom: solid 2px $brand-primary;
+  h4, h6 {
+    margin: 0px;
+  }
+  h6 {
+    margin-top: 3px;
+  }
+}
+article {
+  header.article-header {
+    .article-header-image {
+      background-image: url('../images/header-bg.png');
+      text-decoration: none;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center center;
+      height: 250px;
+      position: relative;
+      border: solid thin $brand-primary;
+      border-bottom: solid 2px $brand-primary;
+    }
+    .article-meta {
+      color: black; 
+      margin-left: $gap;
+    }
+  }
+  img.alignright {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    float: right;
+  }
+  img.alignleft {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    float: left;
+  }
+}

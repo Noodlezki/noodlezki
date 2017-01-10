@@ -1,0 +1,27 @@
+header.banner {
+  background-image: url('../images/header-bg.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  height: 33%;
+  position: relative;
+  border-bottom: solid 2px $brand-primary;
+  margin-bottom: $gap;
+}
+#brand-title {
+  position: absolute;
+  bottom: 20px;
+  right: 40px;
+  padding: 3px;
+  text-align: right;
+  color: white;
+  a {
+    color: white;
+  }
+  a:hover {
+    color: $brand-primary;
+    .brand-white-link {
+      color: white;
+    }
+  }
+}

@@ -1,0 +1,25 @@
+@import 'https://fonts.googleapis.com/css?family=Arvo';
+@import 'https://fonts.googleapis.com/css?family=Raleway';
+
+//Fonts
+$font-family-serif:  'Arvo';
+$font-family-sans-serif:       'Raleway';
+
+$headings-font-family: $font-family-serif;
+$font-family-base: $font-family-sans-serif;
+
+// Glyphicons font path
+// $icon-font-path:        "../fonts/";
+
+// Footer
+$footer-height: 50px;
+$gap:           25px;
+
+// Grid settings
+$main-sm-columns:       12;
+$sidebar-sm-columns:    3;
+
+// Colors
+$brand-primary:         #f3a06d;
+$light-grey:            #cccccc;
+$body-bg:               #ffffff;

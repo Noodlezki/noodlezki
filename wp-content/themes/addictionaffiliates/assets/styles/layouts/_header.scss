@@ -1,0 +1,29 @@
+header {
+  a {
+    &:hover {
+      text-decoration: none;
+    }
+  }
+  #brand-logo {
+    float: right;
+    max-width: 100px;
+    max-height: 100px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+  #brand-title {
+    line-height: 50px;
+    margin: 25px 25px 25px 25px;
+    float: right;
+  }
+  #header-contact {
+    height: 100%;
+    .header-contact-child {
+      height: 50%;
+    }
+  }
+  .navbar-bar {
+    border-top: solid thin $brand-primary;
+    border-bottom: solid thin $brand-primary;
+  }
+}

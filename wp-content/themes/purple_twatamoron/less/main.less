@@ -1,0 +1,47 @@
+@import "../bower_components/bootstrap/less/bootstrap.less";
+@import "header.less";
+@import "article.less";
+@import "footer.less";
+@import "sidebar.less";
+
+@background-dark : #343477;
+@background-light : #A0A0D3;
+@highlight : #fff;
+@link-color : #1A1A59;
+
+@font-family-serif: 'Arvo', serif;
+@main-font: 'Raleway', sans-serif;
+
+body {
+  font-family: @main-font;
+  background: @background-light;
+  background-image: url('../../img/bg02.png');
+  background-size: 95%;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+h1, h2, h3, h4, h5, h6 {
+  margin: 10px 0;
+  font-family: @font-family-serif;
+}
+h1 {
+  font-size: 40px;
+  margin-top: 20px;
+}
+ul {
+  list-style-type: none;
+}
+a:hover {
+  text-decoration: none;
+  opacity: 0.5;
+}
+p a {
+  border-bottom: dotted thin @background-dark;
+}
+p {
+  text-align: justify;
+}
+.main {
+  padding-bottom: (@footer-height + 20px);
+}
