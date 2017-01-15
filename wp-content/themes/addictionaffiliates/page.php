@@ -8,7 +8,7 @@
 </aside>
  */ ?>
 
- <main class="main <? /* sidebar-primary */?>" role="main">
+<main class="main <? /* sidebar-primary */?>" role="main">
   <?php while (have_posts()) : the_post(); ?>
     <article <?php post_class(); ?>>
       <header>
