@@ -1,11 +1,17 @@
 <header class="banner" role="banner">
   <div class="header-bar">
     <div class="container">
-      <img id="brand-logo" src="<?= get_stylesheet_directory_uri(); ?>/assets/images/logo2.png" />
-      <h1 id="brand-title"><a href="<?= esc_url(home_url('/')); ?>"><?php bloginfo('name'); ?></a></h1>
+      <!-- <a href=<?= esc_url(home_url('/')); ?> -->
+      <img id="brand-logo" src="<?= get_stylesheet_directory_uri(); ?>/assets/images/logo.png" />
+      <!-- </a> -->
       <div id="header-contact">
-        <h4 class="header-contact-child">Phone: <a href="mailto:">0123 465 7890</a></h4>
-        <h4 class="header-contact-child">Email: <a href="mailto:">contact@aa.com</a></h4>
+        <? $email = get_email(); ?>
+          <h4 class="text-center">
+            Phone: <a><?= get_phone(); ?></a>
+            <br class="visible-xs" />
+            Email: <a href="mailto:<?= $email; ?>"><?= $email; ?></a>
+          </h4>
+        </div>
       </div>
     </div>
   </div>

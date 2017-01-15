@@ -5,21 +5,14 @@ header {
     }
   }
   #brand-logo {
-    float: right;
-    max-width: 100px;
-    max-height: 100px;
+    width: 50%;
     padding-top: 10px;
     padding-bottom: 10px;
-  }
-  #brand-title {
-    line-height: 50px;
-    margin: 25px 25px 25px 25px;
-    float: right;
+    margin: 0 25%;
   }
   #header-contact {
-    height: 100%;
-    .header-contact-child {
-      height: 50%;
+    h4 {
+      line-height: 25px;
     }
   }
   .navbar-bar {

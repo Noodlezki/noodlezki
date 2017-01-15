@@ -34,3 +34,10 @@ function custom_excerpt_more() {
 }
 add_filter('excerpt_more', 'custom_excerpt_more');
 
+function get_email() {
+  return 'info@recoveryguide.co.uk';
+}
+
+function get_phone() {
+  return '07950 735789';
+}
