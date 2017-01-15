@@ -13,7 +13,7 @@ require_once('wrapper.php');
 // NavWalker class
 require_once('nav.php');
 // User functions
-// require_once('user.php');
+require_once('user.php');
 // Breadcrumbs logic TODO seperate JSON from HTML
 require_once('breadcrumbs.php');
 
