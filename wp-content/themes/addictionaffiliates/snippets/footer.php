@@ -4,9 +4,10 @@
       <div class="col-xs-12">
 
         <h6>Addiction Affiliates</h6>
-        <p class="footer-contact-child">Phone: 0123 465 7890</p>
-        <p class="footer-contact-child">Email: <a href="mailto:">contact@aa.com</a></p>
-        <p>Copyright &copy 2016<?php echo date("Y") == "2016" ? "" : "-".date("y"); ?>
+        <p class="footer-contact-child">Phone: <a><?= get_phone(); ?></a></p>
+        <? $email = get_email(); ?>
+        <p class="footer-contact-child">Email: <a href="mailto: <?= $email; ?>"><?= $email; ?></a></p>
+        <!-- <p>Copyright &#38;copy 2016<?php echo date("Y") == "2016" ? "" : "&#45;".date("y"); ?> -->
 
       </div>
     </div>

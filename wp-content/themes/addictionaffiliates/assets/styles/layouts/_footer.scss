@@ -2,7 +2,7 @@ footer {
   text-align: center;
   border-top: solid thin $brand-primary;
   border-bottom: solid thin $brand-primary;
-  background-color: #f8f8f8;
+  background-color: $navbar-default-bg;
   padding: 20px 0;
   margin-top: 25px;
 }
