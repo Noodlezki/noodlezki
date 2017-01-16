@@ -32,6 +32,18 @@ article {
       margin-left: $gap;
     }
   }
+  p {
+    margin-top: $gap/2;
+    margin-bottom: $gap/2;
+  }
+  img {
+    max-width: 400px;
+    max-height: 400px;
+    margin: $gap;
+  }
+  img.aligncenter {
+    margin: $gap auto;
+  }
   img.alignright {
     margin-top: 10px;
     margin-bottom: 10px;

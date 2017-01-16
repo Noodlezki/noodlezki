@@ -9,20 +9,16 @@
 <? endif; ?>
   <div class="container">
     <h1 id="brand-title" class="pull-right">
-        <? if (is_single()) : ?>
-          <?= the_title(); ?>
-        <? else : ?>
-            <a href="<?= esc_url(home_url('/')); ?>">
-            <? if (!is_archive()) : ?>
-              <span class="brand-white-link">
-            <? endif; ?>
-            <?php // bloginfo('name'); ?>
-            The&nbspWorld According to&nbspa&nbspMoron.
-            <? if (is_archive()) : ?>
-              </span>
-            <? endif; ?>
-            </a>
-        <? endif; ?>
+      <a href="<?= esc_url(home_url('/')); ?>">
+      <? if (!is_archive()) : ?>
+        <span class="brand-white-link">
+      <? endif; ?>
+      <?php // bloginfo('name'); ?>
+      The&nbspWorld According to&nbspa&nbspMoron.
+      <? if (is_archive()) : ?>
+        </span>
+      <? endif; ?>
+      </a>
     </h1>
   </div>
 </header>

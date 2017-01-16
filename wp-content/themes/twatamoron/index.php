@@ -1,7 +1,7 @@
 <? /* Used to render lists of articles - by default the /posts page */ ?>
 
 <? if (have_posts()) : ?>
-  <aside class="sidebar" role="complementary">
+  <aside class="sidebar col-md-3 col-sm-4 col-xs-12" role="complementary">
     <?php include(locate_template('snippets/sidebar.php')); ?>
   </aside><!-- /.sidebar -->
 

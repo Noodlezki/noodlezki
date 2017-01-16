@@ -1,4 +1,4 @@
-<div id="sidebar" class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
+<div id="sidebar">
   <h4>Moron through time</h4>
   <!-- <ul> -->
     <?php
