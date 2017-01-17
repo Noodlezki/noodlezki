@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-xs-12">
 
-      <h6><? bloginfo(); ?></h6>
+      <h6><?= bloginfo(); ?></h6>
         <p class="footer-contact-child">Phone: <a><?= get_phone(); ?></a></p>
         <? $email = get_email(); ?>
         <p class="footer-contact-child">Email: <a href="mailto: <?= $email; ?>"><?= $email; ?></a></p>
