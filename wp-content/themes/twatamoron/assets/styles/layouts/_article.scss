@@ -40,6 +40,8 @@ article {
     max-width: 400px;
     max-height: 400px;
     margin: $gap;
+    border: solid thin $brand-primary;
+    border-bottom: solid 2px $brand-primary;
   }
   img.aligncenter {
     margin: $gap auto;
