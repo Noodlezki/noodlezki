@@ -20,6 +20,9 @@
 
   <? /* and if post IS found... */ ?>
 
+    <? the_post(); ?>
+    <? include(locate_template('snippets/article-long-list.php')); ?>
+
     <?php 
       while (have_posts()) : the_post();
         include(locate_template('snippets/article-list.php'));
