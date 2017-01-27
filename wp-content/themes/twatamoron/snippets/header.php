@@ -10,12 +10,9 @@
   <div class="container">
     <h1 id="brand-title" class="pull-right">
       <a href="<?= esc_url(home_url('/')); ?>">
-      <? if (!is_archive()) : ?>
+      <? if (is_archive() || is_home()) : ?>
         <span class="brand-white-link">
-      <? endif; ?>
-      <?php // bloginfo('name'); ?>
       The&nbspWorld According to&nbspa&nbspMoron.
-      <? if (is_archive()) : ?>
         </span>
       <? endif; ?>
       </a>
