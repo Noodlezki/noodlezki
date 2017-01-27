@@ -3,6 +3,9 @@ footer.site-footer {
   border-top: solid thin $brand-primary;
   margin-top: $gap;
   clear: both;
-  height: $footer-height;
-  line-height: $footer-height;
+  line-height: 40px;
+  a {
+    margin-left: $gap/2;
+    margin-right: $gap/2;
+  }
 }
