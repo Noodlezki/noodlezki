@@ -31,16 +31,6 @@ function require_env( $name ) {
 /*
  * Custom config to make Owain's site work
  */
-$httpHost = $_SERVER['HTTP_HOST'];
-if (
-  $httpHost === 'recoveryguide.co.uk' ||
-  $httpHost === 'addictionaffiliates.co.uk' ||
-  $httpHost === 'routetorecovery.co.uk'
-  ) :  
-  define('WP_SITEURL', 'http://recoveryguide.co.uk');
-  define('WP_HOME', 'http://recoveryguide.co.uk');
-else :
-endif;
 
 
 /*
@@ -141,6 +131,16 @@ define('DISABLE_WP_CRON', 'true');
 /** Absolute path to the WordPress directory. */
 if ( !defined('ABSPATH') )
 	define('ABSPATH', dirname(__FILE__) . '/');
+
+
+$httpHost = $_SERVER['HTTP_HOST'];
+if (
+  $httpHost === 'addictionaffiliates.co.uk' ||
+  $httpHost === 'routetorecovery.co.uk' ||
+  ) :  
+  $_SERVER['HTTP_HOST'] = 'recoveryguide.co.uk';
+else :
+endif;
 
 /** Sets up WordPress vars and included files. */
 require_once(ABSPATH . 'wp-settings.php');
