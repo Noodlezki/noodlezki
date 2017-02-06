@@ -2,9 +2,6 @@
 // Required. Do not edit.
 require_once('lib/init.php');
 
-// --- Custom theme code past this line ---
-define("IS_PRODUCTION", get_option("siteurl")=="http://your.site.url");
-
 // Needed for article-list.php
 function get_the_post_thumbnail_src($img) {
   return (preg_match('~\bsrc="([^"]++)"~', $img, $matches)) ? $matches[1] : '';
