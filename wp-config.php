@@ -133,11 +133,11 @@ if ( !defined('ABSPATH') )
 	define('ABSPATH', dirname(__FILE__) . '/');
 
 
-$httpHost = $_SERVER['HTTP_HOST'];
+$http_host = $_SERVER['HTTP_HOST'];
 if (
-  $httpHost === 'addictionaffiliates.co.uk' ||
-  $httpHost === 'routetorecovery.co.uk' ||
-  ) :  
+    $http_host === 'addictionaffiliates.co.uk' ||
+    $http_host === 'routetorecovery.co.uk'
+  ) :
   $_SERVER['HTTP_HOST'] = 'recoveryguide.co.uk';
 else :
 endif;
