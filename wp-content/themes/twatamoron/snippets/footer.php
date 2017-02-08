@@ -12,7 +12,7 @@
       <!-- twitter -->
       <a href="https://www.twitter.com/twatamoron"><i class="fa fa-2x fa-twitter"></i></a>
       <!-- Facebook -->
-      <a href="https://www.facebook.com/The-World-According-to-a-Moron-1872477812992914"><i class="fa fa-2x fa-facebook"></i></a>
+      <a href="https://www.facebook.com/The-World-According-to-a-Moron-1872477812992914"><i class="fa fa-2x fa-facebook-official"></i></a>
       <? $first_year = '2017'; $fy = $first_year; ?>
       <br />
       Copyright &copy <?= $fy; ?><?php echo date('Y') == $fy ? '' : '-' . date('y'); ?>.
