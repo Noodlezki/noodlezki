@@ -3,12 +3,17 @@
   margin-bottom: $gap;
   h4:first-child {
   }
+  ul.categorised {
+    li {
+      width: 50%;
+    }
+  }
   ul {
     // background-color: white;
     padding: 4px;
     margin: 0px;
     li {
-      width: 50%;
+      width: 100%;
       border-top: solid thin transparent;
       border-bottom: solid thin transparent;
       ul {
