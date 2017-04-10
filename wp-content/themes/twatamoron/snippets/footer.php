@@ -1,10 +1,11 @@
 <footer class="site-footer">
+  <? $email = "twatamoron@outlook.com"; ?>
   <div class="container">
     <span id="footer-text">
-      Contact Me
+      Contact Me: <a href="mailto:<?= $email; ?>"><?= $email; ?>
       <br />
       <!-- Email -->
-      <a href="mailto:twatamoron@outlook.com"><i class="fa fa-2x fa-envelope-o"></i></a>
+      <a href="mailto:<?= $email; ?>"><i class="fa fa-2x fa-envelope-o"></i></a>
       <!-- Medium -->
       <a href="https://medium.com/@twatamoron"><i class="fa fa-2x fa-medium"></i></a>
       <!-- Instagram -->
