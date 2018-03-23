@@ -34,3 +34,12 @@ function custom_excerpt_more() {
 }
 add_filter('excerpt_more', 'custom_excerpt_more');
 
+
+register_widget('goodreads');
+
+register_sidebar([
+	'name'          => __( 'Sidebar', 'twatamoron' ),
+	'id'            => 'twtm',
+	'description'   => 'Main Sidebar',
+  'class'         => 'sidebar',
+]);
