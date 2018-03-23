@@ -1,12 +1,11 @@
 <? 
-/* 
- * Used to render the front page. 
- * By default this shows whatever is defined in the database; we
- * have installed Bootstrap swatches for useful testing in ThemeKit.
- */ ?>
+  $video = get_stylesheet_directory_uri() . '/assets/bg.mp4';
+?>
 
-<main class="main" role="main">
-  <?php while (have_posts()) : the_post(); ?>
-    <?php the_content(); ?>
-  <?php endwhile; ?>
+<main class="main main--front" role="main">
+  <div class="font-page__video-container">
+    <video autoplay loop muted class="front-page__video">
+      <source src="<?= $video; ?>" />
+    </video>
+  </div>
 </main>

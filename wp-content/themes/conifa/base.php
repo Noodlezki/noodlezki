@@ -14,6 +14,11 @@ use Roots\Sage\Wrapper;
     </div>
   <![endif]-->
   <?
+    if (is_front_page) :
+      include Wrapper\template_path();
+    else :
+  ?>
+  <?
       do_action('before_header');
       // Executes get_header action. This will use default header.php file from wp_includes if it can't find one. We don't need it for now. 
       // do_action('get_header');
@@ -32,5 +37,6 @@ use Roots\Sage\Wrapper;
       wp_footer();
       do_action('after_footer')
     ?>
+  <? endif; ?>
   </body>
 </html>
