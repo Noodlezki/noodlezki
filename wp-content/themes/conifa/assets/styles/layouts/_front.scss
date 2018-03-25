@@ -5,6 +5,7 @@ main.main--front {
 }
 
 .front-page__video-container {
+  position: absolute;
   width: 100%;
   overflow:hidden;
 }
@@ -22,26 +23,33 @@ main.main--front {
 }
 
 $menu-height: 50px;
+$transition: all 0.15s;
 .menu-group {
+  z-index: 2;
   position: fixed;
 }
 .menu-group__menu {
   list-style: none;
   padding: 0px;
   margin: 20px 0;
+  max-width: $menu-height * 8;
 }
 .menu-group__item {
+  transition: $transition;
   background: rgba(255, 255, 255, 0.75);
   width: $menu-height * 7.5;
-  margin-top: 5px;
-  margin-bottom: 5px;
+  margin-top: 3px;
+  margin-bottom: 3px;
   height: $menu-height;
   z-index: 1000;
 }
 .menu-group__item:hover {
   background: white;
-  height: $menu-height + 10px;
   width: $menu-height * 8;
+  > .menu-group__flag {
+    max-width: $menu-height * 1.5;
+    max-height: $menu-height - 6px;
+  }
 }
 .menu-group__link {
   font-size: $menu-height * 0.4;
@@ -50,6 +58,7 @@ $menu-height: 50px;
   vertical-align: middle;
 }
 .menu-group__flag {
+  transition: $transition;
   max-width: $menu-height;
   max-height: $menu-height - 10px;
   margin-left: 10px;
@@ -58,16 +67,26 @@ $menu-height: 50px;
 
 .menu-group--1, .menu-group--2 {
   left: 0;
+  text-align: left;
   > .menu-group__menu > .menu-group__item {
+    float: left;
     border-top-right-radius: $menu-height / 2;
     border-bottom-right-radius: $menu-height / 2;
+    & > .menu-group__flag--right {
+      display: none;
+    }
   }
 }
 .menu-group--3, .menu-group--4 {
   right: 0;
+  text-align: right;
   > .menu-group__menu > .menu-group__item {
+    float: right;
     border-top-left-radius: $menu-height / 2;
     border-bottom-left-radius: $menu-height / 2;
+    & > .menu-group__flag--left {
+      display: none;
+    }
   }
 }
 .menu-group--1, .menu-group--3 {
