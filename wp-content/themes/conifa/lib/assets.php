@@ -30,8 +30,6 @@ function assets() {
 
     wp_enqueue_script('jquery', "//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js", [], null, false);
   }
-  // TODO Remove this to go live. useful for bootswatching and bootswatching only
-  wp_enqueue_script('bootswatch_custom', "http://bootswatch.com/assets/js/custom.js", [], null, true);
 
   wp_enqueue_script('modernizr', "//cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.min.js", [], null, true);
 
