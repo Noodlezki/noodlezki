@@ -44,7 +44,7 @@ $transition: all 0.15s;
   z-index: 1000;
 }
 .menu-group__item:hover {
-  background: white;
+  background: rgba(255, 255, 255, 0.95);
   width: $menu-height * 8;
   > .menu-group__flag {
     max-width: $menu-height * 1.5;
