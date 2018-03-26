@@ -5,9 +5,4 @@
   <div class="container">
     <h2 class="post-title"><?php the_title(); ?></h2>
   </div>
-<?
-    do_action('before_breadcrumbs');
-    get_template_part('snippets/breadcrumbs');
-    do_action('after_breadcrumbs');
-?>
 </header>
