@@ -1,9 +1,5 @@
 <? /* Used to render single posts */ ?>
 
-<aside class="sidebar" role="complementary">
-  <?php include(locate_template('snippets/sidebar.php')); ?>
-</aside><!-- /.sidebar -->
-
 <main class="main sidebar-primary" role="main">
 
   <? /* What to do if no post is found */ ?>
