@@ -1,10 +1,9 @@
-<header class="banner" role="banner">
-  <div class="header-bar">
-    <div class="container">
-      <img id="brand-logo" src="<?= get_stylesheet_directory_uri(); ?>/assets/images/logo.png" />
-      <h1 id="brand-title"><a href="<?= esc_url(home_url('/')); ?>"><?php bloginfo('name'); ?></a></h1>
-      <? get_template_part('snippets/actionsbuttons'); ?>
-    </div>
+<?php
+  $thumbnail_url = has_post_thumbnail() ? the_post_thumbnail_url : get_stylesheet_directory_uri() . '/assets/img/default.jpeg';
+?>
+<header class="banner" role="banner" style="background-image: url(<?= $thumbnail_url; ?>)">;
+  <div class="container">
+    <h2 class="post-title"><?php the_title(); ?></h2>
   </div>
 <?
     do_action('before_nav');
