@@ -14,7 +14,7 @@ use Roots\Sage\Wrapper;
     </div>
   <![endif]-->
   <?
-    if (is_front_page) :
+    if (is_front_page()) :
       include Wrapper\template_path();
     else :
   ?>
