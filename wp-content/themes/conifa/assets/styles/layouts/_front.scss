@@ -73,7 +73,7 @@ $transition: 0.15s;
 .menu-group--1, .menu-group--2 {
   left: 0;
   text-align: left;
-  > .menu-group__menu > .menu-group__item {
+  > .menu-group__menu > a > .menu-group__item {
     float: left;
     border-top-right-radius: $menu-height / 2;
     border-bottom-right-radius: $menu-height / 2;
@@ -94,7 +94,7 @@ $transition: 0.15s;
 .menu-group--3, .menu-group--4 {
   right: 0;
   text-align: right;
-  > .menu-group__menu > .menu-group__item {
+  > .menu-group__menu > a > .menu-group__item {
     float: right;
     border-top-left-radius: $menu-height / 2;
     border-bottom-left-radius: $menu-height / 2;
