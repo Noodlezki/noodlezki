@@ -1,6 +1,6 @@
 <head>
-  <?php $analytics = getenv('GOOGLE_ANALYTICS'); ?>
-  <?php if ($analytics) : ?>
+  <? $analytics = getenv('ENVIRONMENT') === 'prod'; ?>
+  <? if($analytics) : ?>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-55009677-3"></script>
     <script>
@@ -8,9 +8,9 @@
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
 
-      gtag('config', '<?= $analytics; ?>');
+      gtag('config', 'UA-55009677-3');
     </script>
-  <?php endif; ?>
+  </head>
 
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
