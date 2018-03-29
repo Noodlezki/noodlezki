@@ -1,5 +1,5 @@
 <footer class="footer" role="footer">
-  <? $email = "joedrees@gmail.com"; ?>
+  <? $email = "noodlezki@gmail.com"; ?>
   <? $first_year = '2018'; ?>
   <div class="container">
     <div class="row">
