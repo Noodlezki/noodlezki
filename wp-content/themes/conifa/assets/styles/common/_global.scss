@@ -1,17 +1,16 @@
 p {
-  margin-bottom: 5px;
-  margin-top: 5px;
+  margin-bottom: 12px;
+  margin-top: 12px;
 }
-nav.navbar {
-  margin-bottom: 0px;
+
+body {
+  background-image: url('../images/bg-world-outline.png');
+  background-size: 95%;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  position: relative;
 }
-aside {
-  margin-top: 20px;
-  ul {
-    list-style: none;
-    padding-left: 20px;
-  }
-}
-main {
-  margin-top: 20px;
+html, body {
+  height: 100%;
 }
