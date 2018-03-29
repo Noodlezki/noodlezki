@@ -10,7 +10,7 @@
 
       gtag('config', 'UA-55009677-3');
     </script>
-  <?php endif; ?>>
+  <?php endif; ?>
 
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
