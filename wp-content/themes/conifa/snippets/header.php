@@ -3,6 +3,7 @@
 ?>
 <header class="banner" role="banner" style="background-image: url(<?= $thumbnail_url; ?>)">;
   <div class="container">
-    <h1 class="post-title"><?php the_title(); ?></h1>
+    <a href="/"><h1 class="post-title"><?php the_title(); ?></h1></a>
+    <a href="/"><h6 class="home-link">&laquo Home</h6></a>
   </div>
 </header>
