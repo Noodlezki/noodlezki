@@ -1,12 +1,16 @@
-@import 'https://fonts.googleapis.com/css?family=Josefin+Sans';
-@import 'https://fonts.googleapis.com/css?family=Cardo';
-@import 'https://fonts.googleapis.com/css?family=Open+Sans';
+@font-face {
+  font-family: 'Josefin Sans';
+  src: url('/wp-content/themes/conifa/dist/fonts/JosefinSans-SemiBold.ttf');
+}
+@font-face {
+  font-family: Nunito;
+  src: url('/wp-content/themes/conifa/dist/fonts/Nunito-Light.ttf');
+}
 
 //Fonts
-$font-family-sans-serif:  'Open Sans';
-$font-family-serif:       'Cardo';
+$font-family-sans-serif:  'Nunito', sans-serif;
 
-$headings-font-family: 'Josefin Sans';
+$headings-font-family: 'Josefin Sans', sans-serif;
 $font-family-base: $font-family-sans-serif;
 
 // Glyphicons font path
