@@ -29,6 +29,12 @@
 <main class="main main--front" role="main">
   <div class="front-page__video-container">
 
+    <video autoplay loop muted class="front-page__video">
+      <source src="<?= $video; ?>" />
+    </video>
+
+    <h1 class="front-page__title">A Fans' Guide to the Teams at the 2018 ConIFA World Cup</h1>
+
     <?php foreach ($groups as $group => $teams) :
       usort($teams, function ($item1, $item2) {
         return $item1['title'] <=> $item2['title'];
@@ -43,10 +49,6 @@
         </ul>
       </div>
     <?php endforeach; ?>
-
-    <video autoplay loop muted class="front-page__video">
-      <source src="<?= $video; ?>" />
-    </video>
-
+    
   </div>
 </main>
