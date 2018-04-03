@@ -1,4 +1,15 @@
 <? /* Used to render single posts */ ?>
+<?php
+function get_link_for_field($field) {
+  $type = $field['type'];
+  $item = get_field($type);
+  $is_social = ($type === 'facebook' || $type === 'instagram' || $type === 'twitter');
+  if ($is_social && strpos($item, $type) === false) {
+    return "https://www.$type.com/$item";
+  }
+  return $item;
+}
+?>
 
 <main class="main" role="main">
 
@@ -18,6 +29,7 @@
         array('type' => 'website', 'icon' => 'globe', 'name' => 'Website'),
         array('type' => 'twitter', 'icon' => 'twitter', 'name' => 'Twitter'),
         array('type' => 'facebook', 'icon' => 'facebook', 'name' => 'Facebook'),
+        array('type' => 'instagram', 'icon' => 'instagram', 'name' => 'Instagram'),
         array('type' => 'wiki', 'icon' => 'wikipedia-w', 'name' => 'Wikipedia'),
         array('type' => 'conifa_link', 'icon' => 'soccer-ball-o', 'name' => 'ConIFA Profile'),
       );
@@ -35,7 +47,7 @@
           </div>
           <ul class="sidebar__menu">
             <?php foreach ($menuItems as $menuItem) :
-              $item = get_field($menuItem['type']);
+              $item = get_link_for_field($menuItem);
               if ($item) : ?>
                 <li class="sidebar__menu__item">
                   <a class="sidebar__menu__link" href="<?= $item; ?>">
