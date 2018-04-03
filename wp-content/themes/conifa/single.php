@@ -36,14 +36,22 @@ function get_link_for_field($field) {
       $teamImg = htmlentities(the_title(null, null, false));
       $teamImg = str_replace(' ', '_', $teamImg);
       $teamImg = str_replace('&eacute;', 'e', $teamImg);
+      $logo = get_field('logo');
     ?>
     <article <?php post_class(); ?>>
       <header>
       </header>
       <div class="entry-content">
         <div class="team-sidebar">
-          <div class="sidebar__image-wrapper">
-            <img class="sidebar__image" src="<?= get_stylesheet_directory_uri() . "/assets/flags/$teamImg.png"; ?>" />
+          <div class="sidebar__images-wrapper">
+            <?php if ($logo) : ?>
+              <div class="sidebar__image-wrapper sidebar__image-wrapper--left">
+                <img class="sidebar__image" src="<?= $logo; ?>" />
+              </div>
+            <?php endif; ?>
+            <div class="sidebar__image-wrapper <?= $logo ? 'sidebar__image-wrapper--right' : ''; ?>">
+              <img class="sidebar__image" src="<?= get_stylesheet_directory_uri() . "/assets/flags/$teamImg.png"; ?>" />
+            </div>
           </div>
           <ul class="sidebar__menu">
             <?php foreach ($menuItems as $menuItem) :

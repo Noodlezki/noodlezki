@@ -14,7 +14,21 @@
     max-width: 33%;
   }
 }
+.sidebar__images-wrapper {
+  display: table-row;
+}
 .sidebar__image-wrapper {
+  display: table-cell;
+  width: 100%;
+}
+.sidebar__image-wrapper--left, .sidebar__image-wrapper--right {
+  width: 50%;
+}
+.sidebar__image-wrapper--left {
+  padding-right: 10px;
+}
+.sidebar__image-wrapper--right {
+  padding-left: 10px;
 }
 .sidebar__image {
   max-width: 100%;
