@@ -4,7 +4,7 @@ function get_link_for_field($field) {
   $type = $field['type'];
   $item = get_field($type);
   $is_social = ($type === 'facebook' || $type === 'instagram' || $type === 'twitter');
-  if ($is_social && strpos($item, $type) === false) {
+  if ($item && $is_social && strpos($item, $type) === false) {
     return "https://www.$type.com/$item";
   }
   return $item;
