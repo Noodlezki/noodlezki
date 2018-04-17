@@ -5,7 +5,7 @@
   <div class="banner--cover">
     <div class="container">
       <a href="/"><h1 class="post-title"><?php the_title(); ?></h1></a>
-      <a href="/"><h6 class="home-link">&laquo Home</h6></a>
+      <a href="/"><h4 class="home-link">&laquo Home</h4></a>
     </div>
   </div>
 </header>
