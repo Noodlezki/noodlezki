@@ -20,6 +20,7 @@ header.banner {
   padding: 3px;
   text-align: right;
   color: white;
+  line-height: 1.5em;
 }
 .home-link {
   $bottom: 0px;
@@ -30,4 +31,7 @@ header.banner {
   padding: 3px;
   text-align: right;
   color: white;
+}
+.post-title, .home-link {
+  text-shadow: 0 0 10px rgba(0, 0, 0, 1); 
 }
