@@ -3,6 +3,7 @@ function add_team($team, $link) {
   $teamImg = htmlentities($team);
   $teamImg = str_replace(' ', '_', $teamImg);
   $teamImg = str_replace('&eacute;', 'e', $teamImg);
+  $teamImg = str_replace('&aacute;', 'a', $teamImg);
 ?>
   <a href="<?= $link; ?>">
     <li class="menu-group__item">
