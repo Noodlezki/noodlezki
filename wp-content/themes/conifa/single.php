@@ -36,6 +36,7 @@ function get_link_for_field($field) {
       $teamImg = htmlentities(the_title(null, null, false));
       $teamImg = str_replace(' ', '_', $teamImg);
       $teamImg = str_replace('&eacute;', 'e', $teamImg);
+      $teamImg = str_replace('&aacute;', 'a', $teamImg);
       $logo = get_field('logo');
     ?>
     <article <?php post_class(); ?>>
