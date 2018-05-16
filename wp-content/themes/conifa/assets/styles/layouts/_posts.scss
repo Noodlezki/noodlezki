@@ -1,8 +1,8 @@
 figure {
+  @media (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
+    max-width: 66% !important;
+  }
   @media (min-width: $screen-md-min) {
     max-width: 50% !important;
-  }
-  @media (min-width: $screen-sm-min) {
-    max-width: 66% !important;
   }
 }
