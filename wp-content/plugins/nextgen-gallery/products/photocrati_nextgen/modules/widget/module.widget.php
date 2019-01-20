@@ -4,15 +4,22 @@ class M_Widget extends C_Base_Module
     /**
      * Defines the module name & version
      */
-    function define()
+    function define($id = 'pope-module',
+                    $name = 'Pope Module',
+                    $description = '',
+                    $version = '',
+                    $uri = '',
+                    $author = '',
+                    $author_uri = '',
+                    $context = FALSE)
     {
         parent::define(
             'photocrati-widget',
             'Widget',
             'Handles clearing of NextGen Widgets',
-            '0.6',
+            '3.1.6',
             'https://www.imagely.com/wordpress-gallery-plugin/nextgen-gallery/',
-            'Photocrati Media',
+            'Imagely',
             'https://www.imagely.com'
         );
     }
@@ -30,9 +37,14 @@ class M_Widget extends C_Base_Module
      */
     function _register_hooks()
     {
-         add_action('widgets_init', create_function('', 'return register_widget("C_Widget_Gallery");'));
-         add_action('widgets_init', create_function('', 'return register_widget("C_Widget_MediaRSS");'));
-         add_action('widgets_init', create_function('', 'return register_widget("C_Widget_Slideshow");'));
+    	add_action('widgets_init', array($this, 'register_widgets'));
+    }
+
+    function register_widgets()
+    {
+	    register_widget("C_Widget_Gallery");
+	    register_widget("C_Widget_MediaRSS");
+	    register_widget("C_Widget_Slideshow");
     }
 
     function get_type_list()

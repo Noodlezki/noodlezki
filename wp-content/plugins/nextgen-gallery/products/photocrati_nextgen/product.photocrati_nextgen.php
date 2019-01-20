@@ -22,7 +22,9 @@ class P_Photocrati_NextGen extends C_Base_Product
 		'photocrati-ajax'                       =>  'always',
 		'photocrati-datamapper'                 =>  'always',
 		'photocrati-nextgen-legacy'             =>  'always',
+		'photocrati-simple_html_dom'            =>  'always',
 		'photocrati-nextgen-data'               =>  'always',
+		'photocrati-nextgen_block'              =>  'always',
 
 		// We should look at how to make the modules below only
 		// require loading in wp-admin
@@ -52,7 +54,8 @@ class P_Photocrati_NextGen extends C_Base_Product
 		'photocrati-widget'                     =>  'always',
 		'photocrati-third_party_compat'         =>  'always',
 		'photocrati-nextgen_xmlrpc'             =>  'always',
-		'photocrati-wpcli'                      =>  'always'
+		'photocrati-wpcli'                      =>  'always',
+        'photocrati-imagify'                    =>  'backend'
 	);
 
 	function get_modules_provided()
@@ -85,16 +88,23 @@ class P_Photocrati_NextGen extends C_Base_Product
 		return $retval;
 	}
 
-	function define()
+	function define($id = 'pope-product',
+                    $name = 'Pope Product',
+                    $description = '',
+                    $version = '',
+                    $uri = '',
+                    $author = '',
+                    $author_uri = '',
+                    $context = FALSE)
 	{
 		parent::define(
 			'photocrati-nextgen',
 			'NextGen Gallery',
 			'NextGen Gallery',
             NGG_PLUGIN_VERSION,
-			'https://www.imagely.com/wordpress-gallery-plugin/nextgen-gallery/',
-			'Photocrati Media',
-			'https://www.imagely.com'
+            'https://www.imagely.com/wordpress-gallery-plugin/nextgen-gallery/',
+            'Imagely',
+            'https://www.imagely.com'
 		);
 
 		$module_path = implode(DIRECTORY_SEPARATOR, array(dirname(__FILE__), 'modules'));

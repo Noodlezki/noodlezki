@@ -11,15 +11,22 @@ define('NGG_BASIC_TAGCLOUD', 'photocrati-nextgen_basic_tagcloud');
 
 class M_NextGen_Basic_Tagcloud extends C_Base_Module
 {
-    function define()
+    function define($id = 'pope-module',
+                    $name = 'Pope Module',
+                    $description = '',
+                    $version = '',
+                    $uri = '',
+                    $author = '',
+                    $author_uri = '',
+                    $context = FALSE)
     {
         parent::define(
 			NGG_BASIC_TAGCLOUD,
             'NextGen Basic Tagcloud',
             'Provides a tagcloud for NextGEN Gallery',
-            '0.15',
-            'https://www.imagely.com',
-            'Photocrati Media',
+            '3.1.6',
+            'https://www.imagely.com/wordpress-gallery-plugin/nextgen-gallery/',
+            'Imagely',
             'https://www.imagely.com'
         );
 
@@ -40,7 +47,7 @@ class M_NextGen_Basic_Tagcloud extends C_Base_Module
 
     function _register_utilities()
     {
-        if (apply_filters('ngg_load_frontend_logic', TRUE, $this->module_id))
+        if (!is_admin() && apply_filters('ngg_load_frontend_logic', TRUE, $this->module_id))
             $this->get_registry()->add_utility('I_Taxonomy_Controller', 'C_Taxonomy_Controller');
     }
 
@@ -68,7 +75,7 @@ class M_NextGen_Basic_Tagcloud extends C_Base_Module
             );
         }
 
-        if (apply_filters('ngg_load_frontend_logic', TRUE, $this->module_id))
+        if (!is_admin() && apply_filters('ngg_load_frontend_logic', TRUE, $this->module_id))
         {
             // Provides settings fields and frontend rendering
             $this->get_registry()->add_adapter(
@@ -97,7 +104,8 @@ class M_NextGen_Basic_Tagcloud extends C_Base_Module
                 'the_posts',
                 array(
                     C_Taxonomy_Controller::get_instance(),
-                    'detect_ngg_tag'),
+                    'detect_ngg_tag'
+                ),
                 -10,
                 2
             );
@@ -159,8 +167,9 @@ class C_NextGen_Basic_Tagcloud_Installer extends C_Gallery_Display_Installer
 {
 	/**
 	 * Installs the display type for NextGEN Basic Tagcloud
+     * @param bool $reset (optional) Unused
 	 */
-	function install()
+	function install($reset = FALSE)
 	{
 		$this->install_display_type(
 			NGG_BASIC_TAGCLOUD, array(

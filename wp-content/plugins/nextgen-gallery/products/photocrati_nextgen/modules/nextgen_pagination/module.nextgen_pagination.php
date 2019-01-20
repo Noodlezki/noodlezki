@@ -6,15 +6,22 @@
 */
 class M_NextGen_Pagination extends C_Base_Module
 {
-    function define()
+    function define($id = 'pope-module',
+                    $name = 'Pope Module',
+                    $description = '',
+                    $version = '',
+                    $uri = '',
+                    $author = '',
+                    $author_uri = '',
+                    $context = FALSE)
     {
         parent::define(
             'photocrati-nextgen_pagination',
             "Pagination",
             "Provides pagination for display types",
-            '0.4',
+            '3.0.0.2',
             "https://www.imagely.com/wordpress-gallery-plugin/nextgen-gallery/",
-            "Photocrati Media",
+            "Imagely",
             "https://www.imagely.com"
         );
     }

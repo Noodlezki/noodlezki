@@ -1,15 +1,22 @@
 <?php
 class M_Security extends C_Base_Module
 {
-	function define()
+	function define($id = 'pope-module',
+                    $name = 'Pope Module',
+                    $description = '',
+                    $version = '',
+                    $uri = '',
+                    $author = '',
+                    $author_uri = '',
+                    $context = FALSE)
 	{
 		parent::define(
 			'photocrati-security',
 			'Security',
 			'Provides utilities to check for credentials and security',
-			'0.3',
+			'3.0.0',
 			'https://www.imagely.com/wordpress-gallery-plugin/nextgen-gallery/',
-			'Photocrati Media',
+			'Imagely',
 			'https://www.imagely.com'
 		);
 

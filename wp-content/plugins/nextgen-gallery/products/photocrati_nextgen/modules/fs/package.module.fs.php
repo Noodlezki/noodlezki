@@ -46,9 +46,9 @@ class Mixin_Fs_Instance_Methods extends Mixin
     /**
      * Returns a calculated path to a file
      * @param string $path
-     * @param string $module
-     * @param boolean $relpath
-     * @returns string
+     * @param string|false $module (optional)
+     * @param bool $relpath (optional)
+     * @return string
      */
     function get_abspath($path, $module = FALSE, $relpath = FALSE)
     {
@@ -76,7 +76,7 @@ class Mixin_Fs_Instance_Methods extends Mixin
     /**
      * Returns a calculated relpath to a particular file
      * @param string $path
-     * @param string $module
+     * @param string|false $module (optional)
      * @return string
      */
     function get_relpath($path, $module = FALSE)
@@ -99,8 +99,10 @@ class Mixin_Fs_Instance_Methods extends Mixin
      *
      * If the path doesn't exist, then NULL is returned
      * @param string $path
-     * @param string $module
-     * @returns string|NULL
+     * @param string|false $module (optional)
+     * @param bool $relpath (optional)
+     * @param array $search_paths (optional)
+     * @return string|NULL
      */
     function find_abspath($path, $module = FALSE, $relpath = FALSE, $search_paths = array())
     {
@@ -141,7 +143,7 @@ class Mixin_Fs_Instance_Methods extends Mixin
     /**
      * Returns a list of directories to search for a particular filename
      * @param string $path
-     * @param string $module
+     * @param string|false $module (optional)
      * @return array
      */
     function get_search_paths($path, $module = FALSE)
@@ -180,7 +182,7 @@ class Mixin_Fs_Instance_Methods extends Mixin
      *
      * @param string $base_path
      * @param string $file
-     * @return string
+     * @return null|string
      */
     function _rglob($base_path, $file)
     {
@@ -208,16 +210,19 @@ class Mixin_Fs_Instance_Methods extends Mixin
         return $retval;
     }
     /**
-     * Gets the relative path to a file/directory for a specific Pope product.
-     * If the path doesn't exist, then NULL is returned
-     * @param type $path
-     * @param type $module
-     * @returns string|NULL
+     * Gets the relative path to a file/directory for a specific Pope product. If the path doesn't exist, then NULL is returned
+     * @param string $path
+     * @param string|false $module (optional)
+     * @return string|null
      */
     function find_relpath($path, $module = FALSE)
     {
         return $this->object->find_abspath($path, $module, TRUE);
     }
+    /**
+     * @param string $abspath
+     * @return bool
+     */
     function delete($abspath)
     {
         $retval = FALSE;
@@ -252,30 +257,17 @@ class Mixin_Fs_Instance_Methods extends Mixin
         foreach ($segments as $segment) {
             $segment = trim($segment, "/\\");
             $pieces = array_values(preg_split('#[/\\\\]#', $segment));
-            // determine if each piece should be appended to $retval
-            foreach ($pieces as $ndx => $val) {
-                if ($val === '') {
-                    continue;
-                }
-                $one = array_search($val, $retval);
-                $two = array_search($val, $pieces);
-                $one = FALSE === $one ? 0 : count($one) + 1;
-                $two = FALSE === $two ? 0 : count($two) + 1;
-                if (!empty($protocol)) {
-                    $existing_val = isset($retval[$ndx]) ? $retval[$ndx] : NULL;
-                    if ($existing_val !== $val || $two >= $one) {
-                        $retval[] = $val;
-                    }
+            $segment = join(DIRECTORY_SEPARATOR, $pieces);
+            if (!$retval) {
+                $retval = $segment;
+            } else {
+                if (strpos($segment, $retval) !== FALSE) {
+                    $retval = $segment;
                 } else {
-                    $existing_val = isset($retval[$ndx]) ? $retval[$ndx] : NULL;
-                    if ($existing_val !== $val && $two >= $one) {
-                        $retval[] = $val;
-                    }
+                    $retval = $retval . DIRECTORY_SEPARATOR . $segment;
                 }
             }
         }
-        // Join the paths together
-        $retval = implode(DIRECTORY_SEPARATOR, $retval);
         if (strpos($retval, $this->get_document_root()) !== 0 && strtoupper(substr(PHP_OS, 0, 3)) != 'WIN') {
             $retval = DIRECTORY_SEPARATOR . trim($retval, "/\\");
         }
@@ -298,6 +290,7 @@ class Mixin_Fs_Instance_Methods extends Mixin
     /**
      * Parses the path for a module and filename
      * @param string $str
+     * @return array [path => module]
      */
     function parse_formatted_path($str)
     {
@@ -312,6 +305,7 @@ class Mixin_Fs_Instance_Methods extends Mixin
     }
     /**
      * Gets the document root for this application
+     * @param string $type Must be one of plugins, plugins_mu, templates, styles, content, gallery, or root
      * @return string
      */
     function get_document_root($type = 'root')
@@ -358,10 +352,27 @@ class Mixin_Fs_Instance_Methods extends Mixin
         }
         return $retval;
     }
+    function get_absolute_path($path)
+    {
+        $path = str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, $path);
+        $parts = array_filter(explode(DIRECTORY_SEPARATOR, $path), 'strlen');
+        $absolutes = array();
+        foreach ($parts as $part) {
+            if ('.' == $part) {
+                continue;
+            }
+            if ('..' == $part) {
+                array_pop($absolutes);
+            } else {
+                $absolutes[] = $part;
+            }
+        }
+        return implode(DIRECTORY_SEPARATOR, $absolutes);
+    }
     /**
      * Sets the document root for this application
-     * @param type $value
-     * @return type
+     * @param string $value
+     * @return string
      */
     function set_document_root($value)
     {

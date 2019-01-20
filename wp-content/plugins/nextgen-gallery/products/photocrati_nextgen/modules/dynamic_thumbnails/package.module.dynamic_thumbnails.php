@@ -103,7 +103,7 @@ class C_Dynamic_Thumbnails_Controller extends C_MVC_Controller
     /**
      * Returns an instance of this class
      *
-     * @param string $context
+     * @param string|bool $context
      * @return C_Dynamic_Thumbnails_Controller
      */
     static function get_instance($context = FALSE)
@@ -114,7 +114,7 @@ class C_Dynamic_Thumbnails_Controller extends C_MVC_Controller
         }
         return self::$_instances[$context];
     }
-    function index_action()
+    function index_action($return = FALSE)
     {
         $dynthumbs = C_Dynamic_Thumbnails_Manager::get_instance();
         $uri = $_SERVER['REQUEST_URI'];
@@ -321,7 +321,7 @@ class Mixin_Dynamic_Thumbnails_Manager extends Mixin
                 if ($extension != null) {
                     $extension = '.' . $extension;
                 }
-                $name .= M_I18n::mb_basename($image->filename, $extension);
+                $name .= M_I18n::mb_basename($image->filename);
                 $name .= '-';
                 if ($id_in_name) {
                     $image_id = strval($image->pid);
@@ -389,7 +389,7 @@ class Mixin_Dynamic_Thumbnails_Manager extends Mixin
             if ($extension != null) {
                 $extension = '.' . $extension;
             }
-            $name = M_I18n::mb_basename($name, $extension);
+            $name = M_I18n::mb_basename($name);
         }
         $size_index = strrpos($name, $size_prefix);
         if ($size_index > 0 || $size_index === 0) {
@@ -504,6 +504,10 @@ class C_Dynamic_Thumbnails_Manager extends C_Component
         $this->implement('I_Dynamic_Thumbnails_Manager');
         $this->add_mixin('Mixin_Dynamic_Thumbnails_Manager');
     }
+    /**
+     * @param bool|string $context
+     * @return C_Dynamic_Thumbnails_Manager
+     */
     static function get_instance($context = False)
     {
         if (!isset(self::$_instances[$context])) {

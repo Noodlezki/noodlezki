@@ -1,15 +1,24 @@
 <?php
 class M_Third_Party_Compat extends C_Base_Module
 {
-    function define()
+    protected $wpseo_images = array();
+
+    function define($id = 'pope-module',
+                    $name = 'Pope Module',
+                    $description = '',
+                    $version = '',
+                    $uri = '',
+                    $author = '',
+                    $author_uri = '',
+                    $context = FALSE)
     {
         parent::define(
             'photocrati-third_party_compat',
             'Third Party Compatibility',
             "Adds Third party compatibility hacks, adjustments, and modifications",
-            '0.6',
+            '3.1.4.2',
             'https://www.imagely.com/wordpress-gallery-plugin/nextgen-gallery/',
-            'Photocrati Media',
+            'Imagely',
             'https://www.imagely.com'
         );
 
@@ -99,8 +108,9 @@ class M_Third_Party_Compat extends C_Base_Module
 
         add_action('admin_init', array($this, 'excellent_themes_admin'), -10);
 
-        add_action('plugins_loaded', array(&$this, 'wpml'), PHP_INT_MAX);
-        add_action('plugins_loaded', array(&$this, 'wpml_translation_management'), PHP_INT_MAX);
+        add_action('plugins_loaded',     array($this, 'wpml'), PHP_INT_MAX);
+        add_action('plugins_loaded',     array($this, 'wpml_translation_management'), PHP_INT_MAX);
+        add_filter('wpml_is_redirected', array($this, 'wpml_is_redirected'), -10, 3);
 
         add_filter('headway_gzip', array(&$this, 'headway_gzip'), (PHP_INT_MAX - 1));
         add_filter('ckeditor_external_plugins', array(&$this, 'ckeditor_plugins'), 11);
@@ -113,6 +123,10 @@ class M_Third_Party_Compat extends C_Base_Module
         add_filter('ngg_non_minified_modules', array($this, 'dont_minify_nextgen_pro_cssjs'));
         add_filter('ngg_atp_show_display_type', array($this, 'atp_check_pro_albums'), 10, 2);
         add_filter('run_ngg_resource_manager', array($this, 'run_ngg_resource_manager'));
+        add_filter('wpseo_sitemap_urlimages', array($this, 'add_wpseo_xml_sitemap_images'), 10, 2);
+        add_filter('ngg_pre_delete_unused_term_id', array($this, 'dont_auto_purge_wpml_terms'));
+
+        if ($this->is_ngg_page()) add_action('admin_enqueue_scripts', array(&$this, 'dequeue_spider_calendar_resources'));
 
         // WPML fix
         if (class_exists('SitePress')) {
@@ -123,6 +137,71 @@ class M_Third_Party_Compat extends C_Base_Module
 
         // TODO: Only needed for NGG Pro 1.0.10 and lower
         add_action('the_post', array(&$this, 'add_ngg_pro_page_parameter'));
+    }
+
+    function is_ngg_page()
+    {
+        return (is_admin() && isset($_REQUEST['page']) && strpos($_REQUEST['page'], 'ngg') !== FALSE);
+    }
+
+    function dequeue_spider_calendar_resources()
+    {
+        remove_filter('admin_head', 'spide_ShowTinyMCE');
+    }
+
+    /**
+     * Filter support for WordPress SEO
+     *
+     * @param array $images Provided by WPSEO Filter
+     * @param int $post_id ID Provided by WPSEO Filter
+     * @return array $image List of a displayed galleries entities
+     */
+    function add_wpseo_xml_sitemap_images($images, $post_id)
+    {
+        $this->wpseo_images = $images;
+
+        $post = get_post($post_id);
+
+        // Assign our own shortcode handler; ngglegacy and ATP do this same routine for their own
+        // legacy and preview image placeholders.
+        remove_all_shortcodes();
+        C_NextGen_Shortcode_Manager::add('ngg',        array($this, 'wpseo_shortcode_handler'));
+        C_NextGen_Shortcode_Manager::add('ngg_images', array($this, 'wpseo_shortcode_handler'));
+        do_shortcode($post->post_content);
+
+        return $this->wpseo_images;
+    }
+
+    /**
+     * Processes ngg_images shortcode when WordPress SEO is building sitemaps. Adds images belonging to a
+     * displayed gallery to $this->wpseo_images for the assigned filter method to return.
+     *
+     * @param array $params Array of shortcode parameters
+     * @param null $inner_content
+     */
+    function wpseo_shortcode_handler($params, $inner_content = NULL)
+    {
+        $renderer = C_Displayed_Gallery_Renderer::get_instance();
+        $displayed_gallery = $renderer->params_to_displayed_gallery($params);
+
+        if ($displayed_gallery)
+        {
+            $gallery_storage = C_Gallery_Storage::get_instance();
+            $settings		 = C_NextGen_Settings::get_instance();
+            $source          = $displayed_gallery->get_source();
+            if (in_array('image', $source->returns))
+            {
+                foreach ($displayed_gallery->get_entities() as $image) {
+                    $named_image_size = $settings->imgAutoResize ? 'full' : 'thumb';
+                    $sitemap_image = array(
+                        'src'	=>	$gallery_storage->get_image_url($image, $named_image_size),
+                        'alt'	=>	$image->alttext,
+                        'title'	=>	$image->description ? $image->description: $image->alttext
+                    );
+                    $this->wpseo_images[] = $sitemap_image;
+                }
+            }
+        }
     }
 
     /**
@@ -165,12 +244,8 @@ class M_Third_Party_Compat extends C_Base_Module
      */
     function excellent_themes_admin()
     {
-        if (is_admin()
-        &&  defined('ET_TAXONOMY_META_OPTION_KEY')
-        &&  (!empty($_GET['page']) && strpos($_GET['page'], 'et_') == 0))
-        {
+        if (is_admin() && (!empty($_GET['page']) && strpos($_GET['page'], 'et_') == 0))
             wp_deregister_style('ngg-jquery-ui');
-        }
     }
 
     function atp_check_pro_albums($available, $display_type)
@@ -226,6 +301,40 @@ class M_Third_Party_Compat extends C_Base_Module
     }
 
     /**
+     * NGG automatically purges unused terms when managing a gallery, but this also ensnares WPML translations
+     * @param $term_id
+     * @return bool
+     */
+    public function dont_auto_purge_wpml_terms($term_id)
+    {
+        $args = array('element_id' => $term_id,
+                      'element_type' => 'ngg_tag');
+        $term_language_code = apply_filters('wpml_element_language_code', null, $args);
+
+        if (!empty($term_language_code))
+            return FALSE;
+        else
+            return $term_id;
+    }
+
+    /**
+     * Prevent WPML's parse_query() from conflicting with NGG's pagination & router module controlled endpoints
+     *
+     * @param string $redirect What WPML is send to wp_safe_redirect()
+     * @param int $post_id
+     * @param WP_Query $q
+     * @return bool|string FALSE prevents a redirect from occurring
+     */
+    public function wpml_is_redirected($redirect, $post_id, $q)
+    {
+        $router = C_Router::get_instance();
+        if (!$router->serve_request() && $router->has_parameter_segments())
+            return false;
+        else
+            return $redirect;
+    }
+
+    /**
      * CKEditor features a custom NextGEN shortcode generator that unfortunately relies on parts of the NextGEN
      * 1.9x API that has been deprecated in NextGEN 2.0
      *
@@ -267,8 +376,8 @@ class M_Third_Party_Compat extends C_Base_Module
      * filters to apply. This checks for WeaverII and enables all NextGEN shortcodes that would otherwise be left
      * disabled by our shortcode manager. See https://core.trac.wordpress.org/ticket/17817 for more.
      *
-     * @param $content
-     * @return $content
+     * @param string $content
+     * @return string $content
      */
     function check_weaverii($content)
     {

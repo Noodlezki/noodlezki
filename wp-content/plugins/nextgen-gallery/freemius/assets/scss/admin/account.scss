@@ -1,3 +1,5 @@
+@import "../start";
+
 #fs_account
 {
     .postbox,
@@ -13,6 +15,12 @@
         margin: 0 0 12px 0;
         line-height: 1.4;
         border-bottom: 1px solid #F1F1F1;
+
+        .dashicons {
+            width: 26px;
+            height: 26px;
+            font-size: 1.3em;
+        }
     }
 
     i.dashicons
@@ -22,12 +30,9 @@
         width: 1.2em;
     }
 
-    .button
+    .dashicons
     {
-        i.dashicons
-        {
-            vertical-align: middle;
-        }
+        vertical-align: middle;
     }
 
     .fs-header-actions
@@ -152,6 +157,55 @@ label.fs-tag
     }
 }
 
+#fs_sites
+{
+    .fs-scrollable-table
+    {
+        .fs-table-body {
+            max-height: 200px;
+            overflow: auto;
+            border: 1px solid #e5e5e5;
+
+            & > table.widefat {
+                border: none !important;
+            }
+        }
+
+        .fs-main-column {
+            width: 100%;
+        }
+
+        .fs-site-details
+        {
+            td:first-of-type
+            {
+                text-align: right;
+                color:      grey;
+                width: 1px;
+            }
+
+            td:last-of-type
+            {
+                text-align: right;
+            }
+        }
+
+        .fs-install-details table
+        {
+            tr td
+            {
+                width: 1px;
+                white-space: nowrap;
+
+                &:last-of-type
+                {
+                    width: auto;
+                }
+            }
+        }
+    }
+}
+
 #fs_addons
 {
     h3
@@ -164,6 +218,10 @@ label.fs-tag
     td
     {
         vertical-align: middle;
+    }
+
+    thead {
+        white-space: nowrap;
     }
 
     td:first-child,
@@ -180,5 +238,65 @@ label.fs-tag
     th
     {
         font-weight: bold;
+    }
+}
+
+#fs_billing_address {
+    width: 100%;
+
+    tr {
+        td {
+            width: 50%;
+            padding: 5px;
+        }
+
+        &:first-of-type {
+            td {
+                padding-top: 0;
+            }
+        }
+    }
+
+    @mixin read-mode {
+        border-color: transparent;
+        color: #777;
+        border-bottom: 1px dashed #ccc;
+        padding-left: 0;
+        background: none;
+    }
+
+    span {
+        font-weight: bold;
+    }
+
+    input, select {
+        @include placeholder(transparent);
+
+        display: block;
+        width: 100%;
+        margin-top: 5px;
+
+        &.fs-read-mode {
+            @include read-mode();
+        }
+    }
+
+
+    &.fs-read-mode {
+        td span {
+            display: none;
+        }
+
+        input, select
+        {
+            @include read-mode();
+            @include placeholder(#ccc);
+        }
+    }
+
+
+    button {
+        display: block;
+        width: 100%;
     }
 }

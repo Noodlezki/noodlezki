@@ -14,7 +14,13 @@ class C_Lightbox_Installer
     }
     function install_lightbox($name, $title, $code, $stylesheet_paths = array(), $script_paths = array(), $values = array(), $i18n = array())
     {
-        $lightbox = new C_NGG_Lightbox($name, array('title' => $title, 'code' => $code, 'styles' => is_array($stylesheet_paths) ? implode("\n", $stylesheet_paths) : $stylesheet_paths, 'scripts' => is_array($script_paths) ? implode("\n", $script_paths) : $script_paths, 'values' => $values, 'i18n' => $i18n));
+        if (!is_array($stylesheet_paths) && is_string($stylesheet_paths) && FALSE !== strpos($stylesheet_paths, "\n")) {
+            $stylesheet_paths = explode("\n", $stylesheet_paths);
+        }
+        if (!is_array($script_paths) && is_string($script_paths) && FALSE !== strpos($script_paths, "\n")) {
+            $script_paths = explode("\n", $script_paths);
+        }
+        $lightbox = new C_NGG_Lightbox($name, array('title' => $title, 'code' => $code, 'styles' => $stylesheet_paths, 'scripts' => $script_paths, 'values' => $values, 'i18n' => $i18n));
         C_Lightbox_Library_Manager::get_instance()->register($name, $lightbox);
     }
 }
@@ -26,6 +32,9 @@ class C_Lightbox_Library_Manager
      * @var C_Lightbox_Library_Manager
      */
     static $_instance = NULL;
+    /**
+     * @return C_Lightbox_Library_Manager
+     */
     static function get_instance()
     {
         if (!isset(self::$_instance)) {
@@ -43,6 +52,13 @@ class C_Lightbox_Library_Manager
         $none = new C_NGG_Lightbox('none');
         $none->title = __('None', 'nggallery');
         $this->register('none', $none);
+        // Add Simplelightbox
+        $simplelightbox = new C_NGG_Lightbox('simplelightbox');
+        $simplelightbox->title = __('Simplelightbox', 'nggallery');
+        $simplelightbox->code = 'class="ngg-simplelightbox" rel="%GALLERY_NAME%"';
+        $simplelightbox->styles = array('photocrati-lightbox#simplelightbox/simplelightbox.css');
+        $simplelightbox->scripts = array('photocrati-lightbox#simplelightbox/simple-lightbox.js', 'photocrati-lightbox#simplelightbox/nextgen_simple_lightbox_init.js');
+        $this->register('simplelightbox', $simplelightbox);
         // Add Fancybox
         $fancybox = new C_NGG_Lightbox('fancybox');
         $fancybox->title = __('Fancybox', 'nggallery');
@@ -183,7 +199,14 @@ class C_Lightbox_Library_Manager
         }
         // Make the path to the static resources available for libraries
         // Shutter-Reloaded in particular depends on this
-        $this->_add_script_data('ngg_common', 'nextgen_lightbox_settings', array('static_path' => $router->get_static_url('', 'photocrati-lightbox'), 'context' => $thumbEffectContext), TRUE, TRUE);
+        $this->_add_script_data(
+            'ngg_common',
+            // TODO: Should this be ngg_lightbox_context instead?
+            'nextgen_lightbox_settings',
+            array('static_path' => $router->get_static_url('', 'photocrati-lightbox'), 'context' => $thumbEffectContext),
+            TRUE,
+            TRUE
+        );
         // Enqueue lightbox resources, only if we have a configured lightbox
         if ($lightbox) {
             // Add lightbox script data
@@ -203,7 +226,7 @@ class C_Lightbox_Library_Manager
                     wp_enqueue_style(array_pop($parts));
                 } else {
                     if (!empty($src)) {
-                        wp_enqueue_style($lightbox->name . "-{$i}", $this->_handle_url($src), FALSE, NGG_SCRIPT_VERSION);
+                        wp_enqueue_style($lightbox->name . "-{$i}", $this->_handle_url($src), array(), NGG_SCRIPT_VERSION);
                     }
                 }
             }
@@ -226,6 +249,7 @@ class C_Lightbox_Library_Manager
      * Parses certain paths through get_static_url
      *
      * @param string $url
+     * @param string $type Unused
      * @return string Resulting URL
      */
     static function _handle_url($url, $type = 'script')
@@ -244,6 +268,7 @@ class C_Lightbox_Library_Manager
      * @param string $object_name
      * @param mixed $object_value
      * @param bool $define
+     * @return bool
      */
     function _add_script_data($handle, $object_name, $object_value, $define = TRUE, $override = FALSE)
     {
@@ -305,7 +330,7 @@ class C_NGG_Lightbox extends C_Component
     }
     function initialize($name = '', $properties = array())
     {
-        parent::initialize($name);
+        parent::initialize();
         $properties['name'] = $name;
         foreach ($properties as $k => $v) {
             $this->{$k} = $v;

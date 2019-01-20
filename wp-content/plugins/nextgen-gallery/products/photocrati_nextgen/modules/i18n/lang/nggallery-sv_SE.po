@@ -1221,7 +1221,7 @@ msgid "(Hide Customization Settings)"
 msgstr "(Dölj anpassade inställningar)"
 
 #: products/photocrati_nextgen/modules/nextgen_other_options/adapter.image_options_form.php:97
-msgid "How should related images be match?"
+msgid "How should related images be matched?"
 msgstr "Hur ska relaterade bilder matchas?"
 
 #: products/photocrati_nextgen/modules/nextgen_other_options/adapter.image_options_form.php:100
@@ -1635,7 +1635,7 @@ msgstr "Fuskar du?"
 #: products/photocrati_nextgen/modules/ngglegacy/admin/album.php:180
 #: products/photocrati_nextgen/modules/ngglegacy/admin/album.php:209
 #: products/photocrati_nextgen/modules/ngglegacy/admin/album.php:253
-msgid "Update Successfully"
+msgid "Updated Successfully"
 msgstr "Uppdatering klar"
 
 #: products/photocrati_nextgen/modules/ngglegacy/admin/album.php:227
@@ -1708,7 +1708,7 @@ msgid "[Minimize]"
 msgstr "[Minimera]"
 
 #: products/photocrati_nextgen/modules/ngglegacy/admin/album.php:482
-msgid "After you create and select a album, you can drag and drop a gallery or another album into your new album below"
+msgid "After you create and select an album, you can drag and drop a gallery or another album into your new album below"
 msgstr "När du skapar eller väljer ett album, kan du lägga till gallerier eller andra album genom att dra och släppa dem nedan"
 
 #: products/photocrati_nextgen/modules/ngglegacy/admin/album.php:508
@@ -1832,10 +1832,10 @@ msgstr "och katalogen med miniatyrer"
 msgid "with permission 777 manually !"
 msgstr "med rättigheterna 777 manuellt!"
 
-#: products/photocrati_nextgen/modules/ngglegacy/admin/functions.php:119
+#: products/photocrati_nextgen/modules/ngglegacy/admin/functions.php:121
 #, php-format
-msgid "Gallery ID %1$s successfully created. You can show this gallery in your post or page with the shortcode %2$s.<br/>"
-msgstr "Galleri-id %1$s har skapats. Du kan visa detta galleri i ditt inlägg eller sida med snabbkoden %2$s.<br>"
+msgid "Gallery successfully created. <a href=\"%s\" target=\"_blank\">Manage gallery</a>"
+msgstr ""
 
 #: products/photocrati_nextgen/modules/ngglegacy/admin/functions.php:122
 #: products/photocrati_nextgen/modules/ngglegacy/admin/functions.php:692
@@ -2317,10 +2317,6 @@ msgstr "Bilder har tagits bort"
 msgid "Tags changed"
 msgstr "Etiketter ändrade"
 
-#: products/photocrati_nextgen/modules/ngglegacy/admin/manage.php:818
-msgid "Update successful"
-msgstr "Uppdatering klar"
-
 #: products/photocrati_nextgen/modules/ngglegacy/admin/manage.php:853
 msgid "New gallery page ID"
 msgstr "ID för ny gallerisida"
@@ -2435,8 +2431,8 @@ msgid "Server Settings"
 msgstr "Serverinställningar"
 
 #: products/photocrati_nextgen/modules/ngglegacy/admin/overview.php:97
-msgid "NextGEN Gallery is one of the most popular WordPress plugins of all time with over 12 million downloads."
-msgstr "NextGEN Gallery är en av de mest populära WordPress-tilläggen genom tiderna med över 12 miljoner nedladdningar."
+msgid "NextGEN Gallery is one of the most popular WordPress plugins of all time with over 24 million downloads."
+msgstr "NextGEN Gallery är en av de mest populära WordPress-tilläggen genom tiderna med över 24 miljoner nedladdningar."
 
 # Missed by NextGEN, translated string is displayed.
 #: products/photocrati_nextgen/modules/ngglegacy/admin/overview.php:97
@@ -2878,7 +2874,7 @@ msgid "These are maximum values"
 msgstr "Dessa är maximivärden"
 
 #: products/photocrati_nextgen/modules/ngglegacy/admin/wpmu.php:33
-msgid "Update successfully"
+msgid "Updated successfully"
 msgstr "Uppdatering klar"
 
 #: products/photocrati_nextgen/modules/ngglegacy/admin/wpmu.php:48
@@ -3226,8 +3222,8 @@ msgid "https://www.imagely.com/wordpress-gallery-plugin/nextgen-gallery/"
 msgstr "https://www.imagely.com/wordpress-gallery-plugin/nextgen-gallery/"
 
 #. Description of the plugin/theme
-msgid "The most popular gallery plugin for WordPress and one of the most popular plugins of all time with over 12 million downloads."
-msgstr "Det mest populära galleri-tillägget för WordPress och ett av de mest populära tillägg genom tiderna med över 12 miljoner nedladdningar."
+msgid "The most popular gallery plugin for WordPress and one of the most popular plugins of all time with over 24 million downloads."
+msgstr "Det mest populära galleri-tillägget för WordPress och ett av de mest populära tillägg genom tiderna med över 24 miljoner nedladdningar."
 
 #. Author of the plugin/theme
 msgid "Imagely"

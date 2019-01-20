@@ -28,7 +28,9 @@ class A_NextGen_Basic_Tagcloud_Controller extends Mixin
     /**
      * Displays the 'tagcloud' display type
      *
-     * @param stdClass|C_Displayed_Gallery|C_DataMapper_Model $displayed_gallery
+     * @param C_Displayed_Gallery $displayed_gallery
+     * @param bool $return (optional)
+     * @return string
      */
     function index_action($displayed_gallery, $return = FALSE)
     {
@@ -54,7 +56,6 @@ class A_NextGen_Basic_Tagcloud_Controller extends Mixin
         }
         $params = $display_settings;
         $params['inner_content'] = $displayed_gallery->inner_content;
-        $params['storage'] =& $storage;
         $params['tagcloud'] = wp_generate_tag_cloud($tags, $args);
         $params['displayed_gallery_id'] = $displayed_gallery->id();
         $params = $this->object->prepare_display_parameters($displayed_gallery, $params);
@@ -68,7 +69,7 @@ class A_NextGen_Basic_Tagcloud_Controller extends Mixin
     function enqueue_frontend_resources($displayed_gallery)
     {
         $this->call_parent('enqueue_frontend_resources', $displayed_gallery);
-        wp_enqueue_style('photocrati-nextgen_basic_tagcloud-style', $this->get_static_url('photocrati-nextgen_basic_tagcloud#nextgen_basic_tagcloud.css'), FALSE, NGG_SCRIPT_VERSION);
+        wp_enqueue_style('photocrati-nextgen_basic_tagcloud-style', $this->get_static_url('photocrati-nextgen_basic_tagcloud#nextgen_basic_tagcloud.css'), array(), NGG_SCRIPT_VERSION);
         $this->enqueue_ngg_styles();
     }
 }
@@ -89,12 +90,7 @@ class A_NextGen_Basic_Tagcloud_Form extends Mixin_Display_Type_Form
     }
     function enqueue_static_resources()
     {
-        $path = 'photocrati-nextgen_basic_tagcloud#settings.css';
-        wp_enqueue_style('nextgen_basic_tagcloud_settings-css', $this->get_static_url($path), FALSE, NGG_SCRIPT_VERSION);
-        $atp = C_Attach_Controller::get_instance();
-        if (!is_null($atp)) {
-            $atp->mark_script($path);
-        }
+        $this->object->enqueue_style('nextgen_basic_tagcloud_settings-css', $this->get_static_url('photocrati-nextgen_basic_tagcloud#settings.css'));
     }
     function _render_nextgen_basic_tagcloud_number_field($display_type)
     {
@@ -104,14 +100,17 @@ class A_NextGen_Basic_Tagcloud_Form extends Mixin_Display_Type_Form
     {
         $types = array();
         $skip_types = array(NGG_BASIC_TAGCLOUD, NGG_BASIC_SINGLEPIC, NGG_BASIC_COMPACT_ALBUM, NGG_BASIC_EXTENDED_ALBUM);
-        if (!isset($display_type->settings['gallery_type'])) {
-            $display_type->settings['gallery_display_type'] = isset($display_type->settings['display_type']) ? $display_type->settings['display_type'] : '';
+        if (empty($display_type->settings['gallery_display_type']) && !empty($display_type->settings['gallery_type'])) {
+            $display_type->settings['gallery_display_type'] = $display_type->settings['display_type'];
         }
         $skip_types = apply_filters('ngg_basic_tagcloud_excluded_display_types', $skip_types);
         $mapper = C_Display_Type_Mapper::get_instance();
         $display_types = $mapper->find_all();
         foreach ($display_types as $dt) {
             if (in_array($dt->name, $skip_types)) {
+                continue;
+            }
+            if (!empty($dt->hidden_from_ui)) {
                 continue;
             }
             $types[$dt->name] = $dt->title;
@@ -179,7 +178,7 @@ class A_NextGen_Basic_TagCloud_Urls extends Mixin
             $id = preg_quote($id, '#') . $sep;
         }
         $prefix = preg_quote($settings->router_param_prefix, '#');
-        $regex = implode('', array('#//?', $id ? "({$id})?" : "(\\w+{$sep})?", "({$prefix})?gallerytag{$sep}([\\w-_]+)/?#"));
+        $regex = implode('', array('#//?', $id ? "({$id})?" : "(\\w+{$sep})?", "({$prefix})?gallerytag{$sep}([\\w\\-_]+)/?#"));
         // Replace any page parameters with the ngglegacy equivalent
         if (preg_match($regex, $retval, $matches)) {
             $retval = rtrim(str_replace($matches[0], "/tags/{$matches[3]}/", $retval), "/");
@@ -198,7 +197,7 @@ class C_Taxonomy_Controller extends C_MVC_Controller
     /**
      * Returns an instance of this class
      *
-     * @param string $context
+     * @param string|bool $context
      * @return C_Taxonomy_Controller
      */
     static function get_instance($context = FALSE)
@@ -214,24 +213,19 @@ class C_Taxonomy_Controller extends C_MVC_Controller
         parent::define($context);
         $this->implement('I_Taxonomy_Controller');
     }
-    /**
-     * Returns the rendered HTML of a gallery based on the provided tag
-     *
-     * @param string $tag
-     * @return string
-     */
-    function index_action($tag)
+    function render_tag($tag)
     {
         $mapper = C_Display_Type_Mapper::get_instance();
         // Respect the global display type setting
         $display_type = $mapper->find_by_name(NGG_BASIC_TAGCLOUD, TRUE);
         $display_type = !empty($display_type->settings['gallery_display_type']) ? $display_type->settings['gallery_display_type'] : NGG_BASIC_THUMBNAILS;
-        return "[ngg_images source='tags' container_ids='{$tag}' slug='{$tag}' display_type='{$display_type}']";
+        return "[ngg source='tags' container_ids='{$tag}' slug='{$tag}' display_type='{$display_type}']";
     }
     /**
      * Determines if the current page is /ngg_tag/{*}
      *
      * @param $posts Wordpress post objects
+     * @param WP_Query $wp_query_local
      * @return array Wordpress post objects
      */
     function detect_ngg_tag($posts, $wp_query_local)
@@ -267,6 +261,8 @@ class C_Taxonomy_Controller extends C_MVC_Controller
         }
         if ($wp_query_orig !== false) {
             $wp_query = $wp_query_orig;
+            // Commenting this out as it was causing WSOD in 2.2.8
+            //        	$wp_query->is_page = FALSE; // Prevents comments from displaying on our taxonomy 'page'
         }
         return $posts;
     }
@@ -279,7 +275,7 @@ class C_Taxonomy_Controller extends C_MVC_Controller
         $post->post_name = 'ngg_tag';
         $post->guid = get_bloginfo('wpurl') . '/' . 'ngg_tag';
         $post->post_title = $title;
-        $post->post_content = $this->index_action($tag);
+        $post->post_content = $this->render_tag($tag);
         $post->ID = FALSE;
         $post->post_type = 'page';
         $post->post_status = 'publish';
