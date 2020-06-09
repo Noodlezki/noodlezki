@@ -13,6 +13,15 @@ use Roots\Sage\Wrapper;
       <?php _e('You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.', 'sage'); ?>
     </div>
   <![endif]-->
+  
+  <?php $analytics = getenv('ENVIRONMENT') === 'prod'; ?>
+  <?php if ($analytics) : ?>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NPZSBHM"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+  <?php endif; ?>
+
   <?
     if (is_front_page()) :
       include Wrapper\template_path();
